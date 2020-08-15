@@ -28,6 +28,8 @@ class UserController {
 
     await userRepository.save(user);
 
+    delete user.password;
+
     return response.status(201).json(user);
   }
 }
