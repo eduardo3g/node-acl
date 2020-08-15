@@ -3,12 +3,14 @@ import { getCustomRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
 import UserRepository from '../repositories/UserRepository';
+import RoleRepository from '../repositories/RoleRepository';
 
 class UserController {
   public async create(request: Request, response: Response): Promise<Response> {
     const userRepository = getCustomRepository(UserRepository);
+    const roleRepository = getCustomRepository(RoleRepository);
 
-    const { name, username, password } = request.body;
+    const { name, username, password, roles } = request.body;
 
     const userExists = await userRepository.findOne({ username });
 
@@ -20,10 +22,13 @@ class UserController {
 
     const hashedPassword = await hash(password, 8);
 
+    const existingRoles = await roleRepository.findByIds(roles);
+
     const user = userRepository.create({
       name,
       username,
       password: hashedPassword,
+      roles: existingRoles,
     });
 
     await userRepository.save(user);
