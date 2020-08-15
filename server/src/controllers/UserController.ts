@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcryptjs';
+
 import UserRepository from '../repositories/UserRepository';
 
 class UserController {
@@ -16,10 +18,12 @@ class UserController {
         .json({ message: `The username "${username}" already exists.` });
     }
 
+    const hashedPassword = await hash(password, 8);
+
     const user = userRepository.create({
       name,
       username,
-      password,
+      password: hashedPassword,
     });
 
     await userRepository.save(user);
