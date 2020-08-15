@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Request, Response, NextFunction } from 'express';
 import { decode } from 'jsonwebtoken';
 import { getCustomRepository } from 'typeorm';
@@ -41,3 +42,5 @@ function is(role: string[]) {
 
   return authorizedRole;
 }
+
+export { is };
