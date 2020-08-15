@@ -6,6 +6,9 @@
   "username": "postgres",
   "password": "docker",
   "database": "node-acl",
+  "entities": [
+    "./src/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
