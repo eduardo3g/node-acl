@@ -11,7 +11,10 @@ class SessionController {
 
     const userRepository = getCustomRepository(UserRepository);
 
-    const user = await userRepository.findOne({ username });
+    const user = await userRepository.findOne(
+      { username },
+      { relations: ['roles'] },
+    );
 
     if (!user) {
       return response
@@ -27,7 +30,9 @@ class SessionController {
         .json({ error: 'Incorrect password or username.' });
     }
 
-    const token = sign({}, 'e5036c188394f4f81a661fb325f21860', {
+    const roles = user.roles.map(role => role.name);
+
+    const token = sign({ roles }, 'e5036c188394f4f81a661fb325f21860', {
       subject: user.id,
       expiresIn: '1d',
     });
