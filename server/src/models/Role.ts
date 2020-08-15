@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity('roles')
-class Permission {
+class Role {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -24,4 +24,4 @@ class Permission {
   updated_at: string;
 }
 
-export default Permission;
+export default Role;
