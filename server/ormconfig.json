@@ -1,14 +1,15 @@
 {
+  "name": "default",
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "userrname": "postgres",
+  "username": "postgres",
   "password": "docker",
   "database": "node-acl",
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
-  "cli": [
-    "./src/database/migrations"
-  ]
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
 }
